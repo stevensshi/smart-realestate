@@ -6,10 +6,10 @@ The system is service oriented with high scalability and cutting-edge technologi
 
 There are four modules in the system.
 
-1.Front server: a dynamic search website constructed by Node.js, and return estimated price and search result list.
-2.API server: a RPC API service server written in Python, accepting request from front server and call TensorFlow service
-3.Data fetcher: a web crawler continously gather property information.
-4.Machine learning: a online prediction service and offline training model.
+- Front server: a dynamic search website constructed by Node.js, and return estimated price and search result list.
+- API server: a RPC API service server written in Python, accepting request from front server and call TensorFlow service
+- Data fetcher: a web crawler continously gather property information.
+- Machine learning: a online prediction service and offline training model.
 
 System Architecture
 ![Architecture](/Architecture.png)
