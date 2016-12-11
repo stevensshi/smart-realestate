@@ -1,1 +1,3 @@
-# smart-realestate
+# Smart Realestate
+
+[Architecture](smart-realestate/Architecture.png)
