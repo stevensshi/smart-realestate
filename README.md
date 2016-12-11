@@ -1,3 +1,3 @@
 # Smart Realestate
 
-[Architecture](smart-realestate/Architecture.png)
+[](smart-realestate/Architecture.png)
