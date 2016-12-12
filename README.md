@@ -7,9 +7,11 @@ The system is service oriented with high scalability and cutting-edge technologi
 There are four modules in the system.
 
 - Front server: a dynamic search website constructed by Node.js, and return estimated price and search result list.
-- API server: a RPC API service server written in Python, accepting request from front server and call TensorFlow service
-- Data fetcher: a web crawler continously gather property information.
-- Machine learning: a online prediction service and offline training model.
+- API server: a RPC API service server written in Python, accepting request from front server and call TensorFlow service.
+- Machine learning: a online prediction service useing TensorFlow and offline training model.
+- Data fetcher: a web crawler continously gather property information into MongoDB.
 
 System Architecture
 ![Architecture](https://raw.githubusercontent.com/stevensshi/smart-realestate/master/architecture.png)
+
+The system is in prototyping and will be online during Chirstmas
