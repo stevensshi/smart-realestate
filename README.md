@@ -12,4 +12,4 @@ There are four modules in the system.
 - Machine learning: a online prediction service and offline training model.
 
 System Architecture
-![Architecture](https://github.com/stevensshi/smart-realestate/architecture.png)
+![Architecture](https://raw.githubusercontent.com/stevensshi/smart-realestate/master/architecture.png)
