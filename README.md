@@ -2,7 +2,7 @@
 
 Smart Realestate is a house price tracking and predicting system.
 
-The system is service oriented with high scalability and cutting-edge technologies like Node.js/Express, PRC API, Python, web scraper, MongoDB and the most hot machine learning framework -- TensorFlow.
+The system is service oriented with high scalability and cutting-edge technologies like Node.js/Express, PRC API, Python, web scraper, MongoDB and the most hot machine learning framework -- TensorFlow. 
 
 There are four modules in the system.
 
@@ -11,7 +11,19 @@ There are four modules in the system.
 - Machine learning: a online prediction service useing TensorFlow and offline training model.
 - Data fetcher: a web crawler continously gather property information into MongoDB.
 
+Code Structure:
+
+| Folder  | Content |
+| ------------- | ------------- |
+| AMQP  | Message Queue (RabbitMQ)  |
+| data_fether  | Python crawler (Scrapy)  |
+| ml_service  | Prediction service and marchine learning (TensorFlow)  |
+| Nodejs_server  | Front server (Node.js)  |
+| rpc_service  | Remote procedure call service  |
+| mongodb  | Mongoose |
+
+
 System Architecture
-![Architecture](https://raw.githubusercontent.com/stevensshi/smart-realestate/master/architecture.png)
+![Architecture](https://raw.githubusercontent.com/stevensshi/smart-realestate/gh-pages/architecture.png)
 
 The system is in prototyping and will be online during Chirstmas
