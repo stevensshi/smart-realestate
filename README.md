@@ -11,12 +11,16 @@ There are four modules in the system.
 - Machine learning: a online prediction service useing TensorFlow and offline training model.
 - Data fetcher: a web crawler continously gather property information into MongoDB.
 
-More detail for the code:
+Code Structure:
 
-| First Header  | Second Header |
+| Folder  | Content |
 | ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+| AMQP  | Message Queue (RabbitMQ)  |
+| data_fether  | Python crawler (Scrapy)  |
+| ml_service  | Prediction service and marchine learning (TensorFlow)  |
+| Nodejs_server  | Front server (Node.js)  |
+| rpc_service  | Remote procedure call service  |
+| mongodb  | Mongoose |
 
 
 System Architecture
