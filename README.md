@@ -12,6 +12,7 @@ There are four modules in the system.
 - Data fetcher: a web crawler continously gather property information into MongoDB.
 
 More detail for the code:
+
 | First Header  | Second Header |
 | ------------- | ------------- |
 | Content Cell  | Content Cell  |
