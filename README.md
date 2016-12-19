@@ -11,7 +11,7 @@ There are four modules in the system.
 - Machine learning: a online prediction service useing TensorFlow and offline training model.
 - Data fetcher: a web crawler continously gather property information into MongoDB.
 
-System Architecture
-![Architecture](https://raw.githubusercontent.com/stevensshi/smart-realestate/master/architecture.png)
+System Architecturef
+![Architecture](https://raw.githubusercontent.com/stevensshi/smart-realestate/gh-pages/architecture.png)
 
 The system is in prototyping and will be online during Chirstmas
