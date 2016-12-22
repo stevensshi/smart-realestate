@@ -3,7 +3,7 @@ import os
 import sys
 import time
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'AMQP'))
 
 import mongodb_client
 import zillow_web_scraper_client
