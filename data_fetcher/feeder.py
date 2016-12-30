@@ -13,7 +13,7 @@ from cloudAMQP_client import CloudAMQPClient
 
 # Automatically feed zpids into queue
 ### REPLACE CLOUD_AMQP_URL WITH YOUR OWN ###
-CLOUD_AMQP_URL = ''''''
+CLOUD_AMQP_URL = '''amqp://chkyuhrv:Tqk3rIQqJjFE6HAKDwYx9fzVr7GegWvi@sidewinder.rmq.cloudamqp.com/chkyuhrv'''
 DATA_FETCHER_QUEUE_NAME = 'dataFetcherTaskQueue'
 ZIPCODE_FILE = 'bay_area_zipcode_list.txt'
 
@@ -33,4 +33,3 @@ for zipcode in zipcode_list:
 
     for zpid in zpids:
         cloudAMQP_client.sendDataFetcherTask({'zpid': zpid})
-

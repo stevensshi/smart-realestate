@@ -1,18 +1,27 @@
 import random
 import re
 import requests
+import socks
+import socket
+import webbrowser
+import logging
 
 from decimal import Decimal
 from lxml import html
 from re import sub
 from urllib import pathname2url
 
+USE_TOR = True
+if USE_TOR:
+    socks.setdefaultproxy(proxy_type=socks.PROXY_TYPE_SOCKS5, addr="127.0.0.1", port=9050)
+    socket.socket = socks.socksocket
+
 URL = '''http://www.zillow.com'''
 SEARCH_FOR_SALE_PATH = '''homes/for_sale'''
 GET_PROPERTY_BY_ZPID_PATH = '''homes'''
 GET_SIMILAR_HOMES_FOR_SALE_PATH = '''homedetails'''
 IMAGE_URL_REGEX_PATTERN = '"z_listing_image_url":"([^"]+)",'
-SIMILAR_HOMES_ZPID_REGEX_PATTERN ='\/(\d+)_zpid'
+SIMILAR_HOMES_ZPID_REGEX_PATTERN = '\/(\d+)_zpid'
 
 SEARCH_XPATH_FOR_ZPID = '''//div[@id='list-results']/div[@id='search-results']/ul[@class='photo-cards']/li/article/@id'''
 GET_INFO_XPATH_FOR_STREET_ADDR = '''//header[@class='zsg-content-header addr']/h1[@class='notranslate']/text()'''
@@ -56,7 +65,15 @@ def getHeaders():
 
 def search_zillow(request_url, xpath):
     session_requests = requests.session()
-    response = session_requests.get(request_url, headers=getHeaders())
+    # print requests.get("http://icanhazip.com").text
+    print "search_zillow:"+request_url
+    response = None
+    while response is None:
+        try:
+            response = session_requests.get(request_url, headers=getHeaders())
+        except:
+            print "search_zillow again"
+            pass
     tree = html.fromstring(response.content)
     return tree.xpath(xpath)
 
@@ -82,8 +99,14 @@ def get_similar_homes_for_sale_by_id(zpid):
 """ Get property information by Zillow Property ID (zpid) """
 def get_property_by_zpid(zpid):
     request_url = '%s/%s_zpid' % (build_url(URL, GET_PROPERTY_BY_ZPID_PATH), str(zpid))
-    session_requests = requests.session()
-    response = session_requests.get(request_url, headers=getHeaders())
+    # print requests.get("http://icanhazip.com").text
+    print "getbyzpid:"+request_url
+    try:
+        session_requests = requests.session()
+        response = session_requests.get(request_url, headers=getHeaders())
+    except Exception:
+        print "get property by zpid again"
+        return {}
 
     try:
         tree = html.fromstring(response.content)
@@ -192,6 +215,25 @@ def get_property_by_zpid(zpid):
         additional_facts = tree.xpath(GET_INFO_XPATH_FOR_ADDITIONAL_FACTS)
     except Exception:
         pass
+
+    # evaluate data
+    if city == None and street_address == None and zipcode == None and description == None and bedroom == None and size == None and list_price == None and image_url == None :
+        return {}
+
+    print "get_property_by_zpid succeed"
+    print {'zpid' : zpid,
+            'street_address' : street_address,
+            'city' : city,
+            'state' : state,
+            'zipcode' : zipcode,
+            'property_type' : property_type,
+            'bedroom' : bedroom,
+            'bathroom' : bathroom,
+            'size' : size,
+            'latitude' : latitude,
+            'longitude' : longitude,
+            'is_for_sale' : is_for_sale,
+            'list_price' : list_price}
 
     return {'zpid' : zpid,
             'street_address' : street_address,
