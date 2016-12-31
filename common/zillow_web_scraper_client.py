@@ -6,12 +6,14 @@ import socket
 import webbrowser
 import logging
 
+import tor
+
 from decimal import Decimal
 from lxml import html
 from re import sub
 from urllib import pathname2url
 
-USE_TOR = True
+USE_TOR = False
 if USE_TOR:
     socks.setdefaultproxy(proxy_type=socks.PROXY_TYPE_SOCKS5, addr="127.0.0.1", port=9050)
     socket.socket = socks.socksocket
@@ -64,17 +66,16 @@ def getHeaders():
     return headers
 
 def search_zillow(request_url, xpath):
-    session_requests = requests.session()
+    # session_requests = requests.session()
     # print requests.get("http://icanhazip.com").text
     print "search_zillow:"+request_url
     response = None
-    while response is None:
-        try:
-            response = session_requests.get(request_url, headers=getHeaders())
-        except:
-            print "search_zillow again"
-            pass
-    tree = html.fromstring(response.content)
+    response = tor.query(request_url)
+
+
+    # response = session_requests.get(request_url, headers=getHeaders())
+
+    tree = html.fromstring(response)
     return tree.xpath(xpath)
 
 """ Search properties by zip code """
@@ -101,12 +102,9 @@ def get_property_by_zpid(zpid):
     request_url = '%s/%s_zpid' % (build_url(URL, GET_PROPERTY_BY_ZPID_PATH), str(zpid))
     # print requests.get("http://icanhazip.com").text
     print "getbyzpid:"+request_url
-    try:
-        session_requests = requests.session()
-        response = session_requests.get(request_url, headers=getHeaders())
-    except Exception:
-        print "get property by zpid again"
-        return {}
+
+    # session_requests = requests.session()
+    response = tor.query(request_url)
 
     try:
         tree = html.fromstring(response.content)

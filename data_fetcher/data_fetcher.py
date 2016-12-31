@@ -27,21 +27,20 @@ WAITING_TIME = 3
 
 cloudAMQP_client = None
 while cloudAMQP_client is None:
-    try:
+
         cloudAMQP_client = CloudAMQPClient(CLOUD_AMQP_URL, DATA_FETCHER_QUEUE_NAME)
-    except:
-        print 'AMQP connection error, trying again'
+
         pass
 
-
 db = mongodb_client.getDB()
+print "DB opened"
 
 def handle_message(msg):
     task = json.loads(msg)
 
     if (not isinstance(task, dict) or
-        not 'zpid' in task or
-        task['zpid'] is None):
+            not 'zpid' in task or
+                task['zpid'] is None):
         return
 
     # TODO a new thread to crawler, none block.
@@ -66,9 +65,9 @@ def handle_message(msg):
             old = db[PROPERTY_TABLE_NAME].find_one({'zpid': zpid})
             # Don't send task if the record is recent
             if (old is not None and
-                'last_update' in old and
-                time.time() - old['last_update'] < SECONDS_IN_ONE_WEEK):
-                    continue
+                        'last_update' in old and
+                            time.time() - old['last_update'] < SECONDS_IN_ONE_WEEK):
+                continue
             cloudAMQP_client.sendDataFetcherTask({'zpid': zpid})
 
 
